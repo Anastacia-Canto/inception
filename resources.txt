@@ -2,3 +2,15 @@ https://docker-curriculum.com
 https://github.com/vbachele/Inception
 https://tuto.grademe.fr/inception/
 https://github.com/Forstman1/inception-42
+
+https://github.com/llescure/42_Inception
+
+https://en.wikipedia.org/wiki/FastCGI
+
+https://www.linuxtuto.com/how-to-install-wordpress-on-debian-12/
+
+https://docs.docker.com/compose/gettingstarted/
+
+https://www.techrepublic.com/article/how-to-build-a-docker-compose-file/
+
+https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms
