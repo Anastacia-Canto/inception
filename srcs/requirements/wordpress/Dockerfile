@@ -17,7 +17,9 @@ COPY ./conf/wp-config.php /var/www/wordpress/
 
 COPY ./tools/script.sh /
 
-RUN chmod 755 /script.sh
+RUN chmod 777 /script.sh
+
+EXPOSE 9000
 
 CMD ["/script.sh"]
 
