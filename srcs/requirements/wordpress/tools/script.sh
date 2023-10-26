@@ -1,5 +1,7 @@
 #!/bin/bash/
 
+mkdir -p /run/php/
+
 #Configure PHP-fpm to listen on port 9000
 sed -i 's/listen = 127.0.0.1:9000/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 

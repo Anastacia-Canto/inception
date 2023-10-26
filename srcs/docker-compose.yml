@@ -24,7 +24,7 @@ services:
       - wordpress
     networks:
       - inception
-    expose:
+    ports:
       - "443:443"
   wordpress:
     container_name: wordpress
@@ -38,19 +38,21 @@ services:
       - mariadb
     networks:
       - inception
+    ports:
+      - 9000:9000
 
 volumes:
   mariadb-data:
     driver: local
     driver_opts:
       type: 'none'
-      device: /home/${LOGIN}/data/mysql
+      device: /home/ansilva-/data/mysql
       o: 'bind'
   wordpress-data:
     driver: local
     driver_opts:
       type: 'none'
-      device: /home/${LOGIN}/data/wordpress
+      device: /home/ansilva-/data/wordpress
       o: 'bind'
 
 networks:

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+mkdir -p /var/run/mysqld
+chmod 755 /var/run/mysqld
+
 service mysql start;
 mysql -e "CREATE DATABASE IF NOT EXISTS \'${DATABASE}\';"
 mysql -e "CREATE USER IF NOT EXISTS \'${DB_USER}\'@'localhost' IDENTIFIED BY ${DB_PASSWORD};"
