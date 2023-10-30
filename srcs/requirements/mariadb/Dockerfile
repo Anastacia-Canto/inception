@@ -8,4 +8,6 @@ COPY ./tools/script.sh /
 
 RUN chmod 755 /script.sh
 
+EXPOSE 3306
+
 CMD ["/script.sh"]

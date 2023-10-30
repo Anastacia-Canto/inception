@@ -9,7 +9,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 -out /etc/nginx/ssl/nginx-selfsigned.crt \
 -subj "/C=PT/L=Lisbon/O=42/OU=student/CN=ansilva-"
 
-COPY index.html /var/www/html
+RUN chmod 644 /etc/nginx/ssl/nginx-selfsigned.*
 
 COPY ./conf/def.conf /etc/nginx/conf.d/
 
