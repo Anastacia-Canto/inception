@@ -39,7 +39,7 @@ services:
     networks:
       - inception
     ports:
-      - 9000:9000
+      - "9000:9000"
 
 volumes:
   mariadb-data:
