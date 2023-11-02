@@ -31,8 +31,13 @@ services:
     build: ./requirements/wordpress/
     image: wordpress:inception
     env_file: .env
+    environment:
+      - WORDPRESS_DB_HOST=$DB_HOST
+      - WORDPRESS_DB_NAME=$DB_NAME
+      - WORDPRESS_DB_USER=$DB_USER
+      - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
     volumes:
-      - wordpress-data:/var/www/
+      - wordpress-data:/var/www/html/
     restart: on-failure
     depends_on:
       - mariadb
@@ -43,12 +48,14 @@ services:
 
 volumes:
   mariadb-data:
+    name: mariadb
     driver: local
     driver_opts:
       type: 'none'
       device: /home/ansilva-/data/mysql
       o: 'bind'
   wordpress-data:
+    name: wordpress
     driver: local
     driver_opts:
       type: 'none'
@@ -57,4 +64,5 @@ volumes:
 
 networks:
   inception:
+    name: inception
     driver: bridge
