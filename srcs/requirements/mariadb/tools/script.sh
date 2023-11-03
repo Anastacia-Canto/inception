@@ -10,20 +10,6 @@ chown -R mysql:mysql /var/lib/mysql
 
 # tail -f /dev/null
 
-
-# /etc/init.d/mysql start
-# mysql -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};" --password=${DB_PASSWORD}
-# mysql -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASSWORD}';"
-# mysql -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
-# mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';"
-# mysql -e "FLUSH PRIVILEGES;" --password=${DB_ROOT_PASSWORD}
-
-# /etc/init.d/mysql stop --password=$DB_ROOT_PASSWORD
-
-# mysqld;
-
-# ------------------------------------------------------------------------------------------------------
-
 if [ -d "/var/lib/mysql/$DB_NAME" ]
 then 
 	echo "Database already exists"

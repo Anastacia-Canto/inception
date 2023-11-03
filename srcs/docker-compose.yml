@@ -1,24 +1,14 @@
 version: '3.8'
 
 services:
-  mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb/
-    image: mariadb:inception
-    env_file: .env
-    volumes:
-      - mariadb-data:/var/lib/mysql/
-    restart: on-failure
-    networks:
-      - inception
 
   nginx:
     container_name: nginx
-    build: ./requirements/nginx/
+    build: ./requirements/nginx
     image: nginx:inception
     env_file: .env
     volumes:
-      - wordpress-data:/var/www/
+      - wordpress-data:/var/www/html
     restart: on-failure
     depends_on:
       - wordpress
@@ -26,16 +16,12 @@ services:
       - inception
     ports:
       - "443:443"
+
   wordpress:
     container_name: wordpress
-    build: ./requirements/wordpress/
+    build: ./requirements/wordpress
     image: wordpress:inception
     env_file: .env
-    environment:
-      - WORDPRESS_DB_HOST=$DB_HOST
-      - WORDPRESS_DB_NAME=$DB_NAME
-      - WORDPRESS_DB_USER=$DB_USER
-      - WORDPRESS_DB_PASSWORD=$DB_PASSWORD
     volumes:
       - wordpress-data:/var/www/html/
     restart: on-failure
@@ -43,24 +29,37 @@ services:
       - mariadb
     networks:
       - inception
-    ports:
-      - "9000:9000"
+    expose:
+      - 9000
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:inception
+    env_file: .env
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    restart: on-failure
+    networks:
+      - inception
+    expose:
+      - 3306
 
 volumes:
   mariadb-data:
     name: mariadb
     driver: local
     driver_opts:
-      type: 'none'
+      type: none
       device: /home/ansilva-/data/mysql
-      o: 'bind'
+      o: bind
   wordpress-data:
     name: wordpress
     driver: local
     driver_opts:
-      type: 'none'
+      type: none
       device: /home/ansilva-/data/wordpress
-      o: 'bind'
+      o: bind
 
 networks:
   inception:

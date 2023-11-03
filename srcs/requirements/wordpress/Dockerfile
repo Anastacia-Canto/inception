@@ -3,11 +3,11 @@ FROM debian:buster
 RUN apt-get -y update && apt-get -y upgrade
 
 # allows to install program by using there download link
-RUN apt-get -y install wget unzip
+RUN apt-get -y install wget unzip bash 
 
 # php-fpm is FastCGI implementation
 # php-mysql and mariadb-client perform connection to database and manipulation
-RUN apt-get -y install php php-fpm php-mysql mariadb-client curl
+RUN apt-get -y install php php-cgi php-pdo php-gd php-cli php-mbstring php-fpm php-mysql redis php-redis coreutils mariadb-client curl
 
 # wordpress is downloaded and installed by link
 RUN wget https://wordpress.org/latest.zip && \
@@ -25,11 +25,7 @@ COPY ./tools/script.sh /
 
 RUN chmod 777 /script.sh
 
-EXPOSE 9000
-
 WORKDIR /var/www/html/
 
-COPY ./conf/wp-config.php .
-
-ENTRYPOINT ["/script.sh"]
+CMD ["/script.sh"]
 
