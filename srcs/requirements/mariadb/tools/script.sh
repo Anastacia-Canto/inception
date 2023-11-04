@@ -17,7 +17,6 @@ else
 mysql_install_db
 
 service mysql start
-# Set root option so that connexion without root password is not possible
 
 mysql_secure_installation <<_EOF_
 
@@ -30,22 +29,27 @@ Y
 Y
 _EOF_
 
+sleep 3
+
+mysql --user=root << _EOF_
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';
+FLUSH PRIVILEGES;
+_EOF_
 
 
-#Create database and user for wordpress
-echo "CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';" | mysql -uroot -p$DB_ROOT_PASSWORD
-echo "CREATE DATABASE IF NOT EXISTS $DB_NAME; GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot -p$DB_ROOT_PASSWORD
+mysql --user=root --password=$DB_ROOT_PASSWORD << _EOF_
+CREATE DATABASE IF NOT EXISTS $DB_NAME;
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$DB_ROOT_PASSWORD';
+GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+_EOF_
+
+mysqladmin -uroot -p$DB_ROOT_PASSWORD shutdown
 
 fi
-sleep 2
 
-service mysql stop
 
 exec mysqld_safe --bind-address=0.0.0.0
-
-
-
-
-
-
-

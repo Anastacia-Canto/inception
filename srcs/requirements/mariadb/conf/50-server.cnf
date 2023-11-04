@@ -1,7 +1,8 @@
 [mysqld]
-user = mysql
+user = root
 port = 3306
 # all the IPs of the network can be connected
 bind-address = 0.0.0.0
 datadir = /var/lib/mysql
 socket = /run/mysqld/mysqld.sock
+skip-networking = false
