@@ -7,7 +7,7 @@ RUN apt-get -y install wget unzip bash
 
 # php-fpm is FastCGI implementation
 # php-mysql and mariadb-client perform connection to database and manipulation
-RUN apt-get -y install php php-cgi php-pdo php-gd php-cli php-mbstring php-fpm php-mysql redis php-redis coreutils mariadb-client curl
+RUN apt-get -y install php php-cgi php-pdo php-gd php-cli php-mbstring php-fpm php-mysql coreutils mariadb-client curl
 
 # wordpress is downloaded and installed by link
 RUN wget https://wordpress.org/latest.zip && \
